@@ -53,10 +53,10 @@ sudo chown ec2-user .mysql_secret
 echo password=\"`cat .mysql_secret | awk 'NR==2'`\" >> .my.cnf
 rm .mysql_secret 
 fetch -q --no-verify-peer https://raw.githubusercontent.com/Adiel-Ribeiro/Zabbix/master/config-mysql 
-mysql --defaults-file=.my.cnf < config-mysql
-mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/schema.sql
-mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/images.sql
-mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/data.sql
+#mysql --defaults-file=.my.cnf < config-mysql
+#mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/schema.sql
+#mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/images.sql
+#mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/data.sql
 mysql --connect-expired-password < config-mysql
 mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/schema.sql
 mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/images.sql
