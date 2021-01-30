@@ -1,0 +1,18 @@
+************ PLEASE, ADJUST SOME CONFIGURATION ACCORDINGLY TO YOUR NEEDS ******************* 
+
+Take a look at these files: 
+
+config-mysql 
+zabbix.conf.php 
+
+Also, take a look at zabbix.sh to understand NUYVM's Zabbix automation 
+
+#######################################################################################
+
+Please, download zabbix.sh to your machine and make it executable 
+Do sh zabbix.sh 
+
+Login to your Zabbix server by your browser with user Admin and password zabbix
+Don't forget to change this password! 
+
+
