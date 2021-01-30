@@ -9,6 +9,8 @@ Also, take a look at zabbix.sh to understand NUYVM's Zabbix automation
 
 #######################################################################################
 
+This script assumes that you already have sudo configured for the user wich executes it
+
 Please, download zabbix.sh to your machine and make it executable 
 Do sh zabbix.sh 
 
