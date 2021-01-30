@@ -78,4 +78,4 @@ sudo chflags schg /home/ec2-user/scripts/.mem.sh
 echo "@reboot /home/ec2-user/scripts/.mem.sh"  > /home/ec2-user/cron
 cat /home/ec2-user/cron | sudo crontab -u root -
 rm cron
-#sudo reboot
+sudo reboot
