@@ -41,13 +41,41 @@ sudo mkdir /usr/local/etc/zabbix52/ssh/
 sudo chown ec2-user:zabbix /usr/local/etc/zabbix52/ssh/
 sudo chmod 770 /usr/local/etc/zabbix52/ssh/
 sudo mkdir /var/run/mysql 
-sudo chmod 755 /var/run/mysql
-sudo chown mysql /var/run/mysql
+sudo chmod 775 /var/run/mysql
+sudo chown mysql:zabbix /var/run/mysql
 sudo service mysql-server restart
 fetch -q --no-verify-peer https://raw.githubusercontent.com/Adiel-Ribeiro/Zabbix/master/user-my.cnf
 mv user-my.cnf .my.cnf 
 chown ec2-user .my.cnf 
 chmod 600 .my.cnf
-sudo mv /root/.mysql_secret /home/ec2-user
+sudo cp /root/.mysql_secret /home/ec2-user/.mysql_secret
 sudo chown ec2-user .mysql_secret
-echo password=`cat .mysql_secret | awk 'NR==2'` >> .my.cnf
+echo password=\"`cat .mysql_secret | awk 'NR==2'`\" >> .my.cnf
+rm .mysql_secret 
+fetch -q --no-verify-peer https://raw.githubusercontent.com/Adiel-Ribeiro/Zabbix/master/config-mysql 
+mysql --defaults-file=.my.cnf < config-mysql
+mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/schema.sql
+mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/images.sql
+mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/data.sql
+mysql --connect-expired-password < config-mysql
+mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/schema.sql
+mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/images.sql
+mysql zabbix --user='zabbix' --password='P@ssw0rd-#CHANGEME!' < /usr/local/share/zabbix52/server/database/mysql/data.sql
+rm config-mysql
+sudo mkdir /var/log/zabbix
+sudo chmod 700 /var/log/zabbix
+sudo chown zabbix /var/log/zabbix
+sudo mkdir /var/run/zabbix
+sudo chown zabbix /var/run/zabbix
+sudo chmod 700 /var/run/zabbix
+fetch -q --no-verify-peer https://raw.githubusercontent.com/Adiel-Ribeiro/Zabbix/master/mem.sh
+mkdir /home/ec2-user/scripts
+chown ec2-user /home/ec2-user/scripts
+chmod 700 /home/ec2-user/scripts
+mv mem.sh /home/ec2-user/scripts/.mem.sh 
+chmod 700 /home/ec2-user/scripts/.mem.sh 
+sudo chflags schg /home/ec2-user/scripts/.mem.sh 
+echo "@reboot /home/ec2-user/scripts/.mem.sh"  > /home/ec2-user/cron
+cat /home/ec2-user/cron | sudo crontab -u root -
+rm cron
+#sudo reboot
