@@ -1,5 +1,5 @@
 #!/bin/sh
-sudo pkg install -y zabbix52-agent zabbix52-frontend zabbix52-server mod_php74-7.4.14 apache24-2.4.46 \
+sudo pkg install -y zabbix52-agent zabbix52-frontend zabbix52-server mod_php74-7.4.15 apache24-2.4.46 \
 mysql57-server
 fetch -q --no-verify-peer https://raw.githubusercontent.com/Adiel-Ribeiro/Zabbix/master/httpd.conf
 fetch -q --no-verify-peer https://raw.githubusercontent.com/Adiel-Ribeiro/Zabbix/master/my.cnf
